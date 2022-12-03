@@ -8,7 +8,9 @@ $filename = substr(sha1( session_id() . $n ), 0, 10);
 for ($i=0; $i<4; $i++) {
     $path .= substr($filename, 0, 1) . '/'; 
     $filename = substr($filename, 1);
-    mkdir($path);
+    if (!file_exists($path)) {
+        mkdir($path);
+    }
 }
 
 $f = 0.03;
@@ -18,7 +20,8 @@ if (!preg_match('/,/', $tmp[0])) {
 } else {
     $lines = explode(",", $tmp[0]);
 }
-$im = imagecreate( ceil(array_sum($lines)*$f)+10, 150 );
+$linesPositive = array_map(function($elem) { return abs($elem); }, $lines);
+$im = imagecreate( ceil(array_sum($linesPositive)*$f)+10, 150 );
 $white = imagecolorallocate($im, 255,255,255);
 $black = imagecolorallocate($im, 0,0,0);
 $grey = imagecolorallocate($im, 230, 230, 240);
@@ -32,7 +35,7 @@ foreach ($lines as $l) {
     imageline($im, $x*$f, $y*50+25, $x*$f, !$y*50+25, $black);
 
     $out = '';
-    for ($i=0; $i<6-strlen($l); $i++) {
+    for ($i=0; $i<6-strlen(abs($l)); $i++) {
         $out .= ' ';
     }
     $out .= $l;
@@ -40,7 +43,7 @@ foreach ($lines as $l) {
 
     $lastX = $x; 
     $lastY = $y;
-    $x += $l;
+    $x += abs($l);
     $y = !$y;
 
 }
