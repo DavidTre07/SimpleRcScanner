@@ -15,7 +15,7 @@ session_start();
 
 <div id="results"> 
 </div>
-  
+
 <script>
 $(function() {
     $('#dataform').submit(function(e) {
@@ -24,6 +24,7 @@ $(function() {
         $.post('ajax.php', {data: $('#data').val()}, function( data ) {
             var r = $('<div class="' + data.name + '" style="width:100%;height:170px;overflow:auto;"><img src="' + data.href + '"><div class="js-close" data-cid="' + data.name + '" style="position:absolute;background-color:#ccc;font-family:arial,sans-serif;font-size:10px;margin:4px;cursor:pointer;">close</div></div>');
             $('#results').prepend(r);
+            console.log(data);
             $('#data').val('');
         });
 
