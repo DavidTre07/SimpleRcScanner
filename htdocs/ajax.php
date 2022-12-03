@@ -13,7 +13,7 @@ for ($i=0; $i<4; $i++) {
     }
 }
 
-$f = 0.03;
+$f = 0.05;
 $tmp = explode("\n", $_POST['data']);
 if (!preg_match('/,/', $tmp[0])) {
     $lines = explode(" ", $tmp[0]);
@@ -39,7 +39,7 @@ foreach ($lines as $l) {
         $out .= ' ';
     }
     $out .= $l;
-    imagestringup($im, 1, $x*$f+2, 140, $out, $black);
+    imagestringup($im, 2, $x*$f+2, 140, $out, $black);
 
     $lastX = $x; 
     $lastY = $y;
