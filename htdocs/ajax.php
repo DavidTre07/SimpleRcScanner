@@ -14,11 +14,12 @@ for ($i=0; $i<4; $i++) {
 }
 
 $f = 0.05;
-$tmp = explode("\n", $_POST['data']);
-if (!preg_match('/,/', $tmp[0])) {
-    $lines = explode(" ", $tmp[0]);
+//$tmp = explode("\n", $_POST['data']);
+$tmp = preg_replace('/\s\s+/', " ",str_replace("\n", " ", $_POST['data']));
+if (!preg_match('/,/', $tmp)) {
+    $lines = explode(" ", $tmp);
 } else {
-    $lines = explode(",", $tmp[0]);
+    $lines = explode(",", $tmp);
 }
 $linesPositive = array_map(function($elem) { return abs($elem); }, $lines);
 $im = imagecreate( ceil(array_sum($linesPositive)*$f)+10, 150 );
